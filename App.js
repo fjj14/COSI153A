@@ -1,12 +1,11 @@
 import React from 'react';
-import MealSharing from './MealSharing'
+import Task from './Task'
 import {  Text,  View } from "react-native";
 
 export default function App() {
     return (
       <View>
-          <MealSharing tipRate={15}  />
-          <MealSharing tipRate={20}  />
-          </View>
+          <Task username={"Fatumata"}  />
+      </View>
 );
 }
