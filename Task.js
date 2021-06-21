@@ -26,7 +26,7 @@ const Task = (props) => {
           <TextInput
           style={styles.textinput}
           onChangeText={text => {setTaskDueDate(parseInt(text))}}
-          placeholder="How many days left until the taks is due"
+          placeholder="Days left until due"
           />
           <Button
           color='blue' title='Add task' alignText='center'
