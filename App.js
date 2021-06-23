@@ -29,7 +29,7 @@ export default function App() {
     const [name, setName] = useState("");
     return (
       <View>
-      <Button
+       <Button
         title="About"
         onPress={() =>
           navigation.navigate('About', { name: name})
