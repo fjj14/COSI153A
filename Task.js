@@ -1,16 +1,53 @@
-import React, { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import 'react-native-gesture-handler';
+import {  Button, StyleSheet, Text, TextInput, View } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const Task = (props) => {
+import { useNavigation } from '@react-navigation/native';
+const Task = () => {
+  useEffect(() => {name()}
+  ,[])
+
+  const navigation = useNavigation();
+  const name = async () => {
+     try{
+      var jsonValue = await AsyncStorage.getItem('@profile_info');
+       var data = null
+      if (jsonValue!=null) {
+        data = JSON.parse(jsonValue)
+        console.log(data)
+        console.log(data.username)
+        setUsername(data.username)
+        return data.username
+      }else{
+       console.log("wronnggg")
+       return "something wrong"
+      }
+  } catch(e) {
+    // read error
+  }
+  return "something wrong"
+  console.log('Done.')
+
+}
+
+
+
+
+  
+  const user = name().then(res => {setUsername(res)});
+  const [username, setUsername] = useState("wronf")
   const [message, setMessage] = useState("");
   const [taskName, setTaskName] = useState(""); 
   const [task, setTask] = useState("eee");
   const [taskDescription, setTaskDescription] = useState("");
   const [taskDueDate, setTaskDueDate] = useState(0);
       return (
+       
   <View style={styles.container}>
-    <Text style={styles.header}>
-       Create a new task
+    <Text style={styles.header} >
+    
+       Create a new task {username}
     </Text>
     <View style={styles.flex}>
     <TextInput
@@ -35,7 +72,8 @@ const Task = (props) => {
             let newTask ="";
             setTask('Name: '+ taskName +'\nDescription: '+taskDescription+'\nDays Left: '+taskDueDate) ;
             newTask ='Name: '+ taskName +'\nDescription: '+taskDescription+'\nDays Left: '+taskDueDate;
-            setMessage('Congrats '+ props.username+', you created a new task!\n'+newTask);
+            
+            setMessage('Congrats '+ username+', you created a new task!\n'+newTask);
             }}
          />
          </View>

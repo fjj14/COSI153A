@@ -1,6 +1,8 @@
 import 'react-native-gesture-handler';
 import React, { useState } from 'react';
 import Task from './Task'
+import Signin from './Signin'
+import Signup from './Signup'
 import { Button, Text,  View,  StyleSheet, TextInput } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -14,10 +16,12 @@ export default function App() {
         <Stack.Screen
           name="main"
           component={loginScreen}
-          options={{ title: 'Welcome',headerStyle: { backgroundColor: 'blue' },
+          options={{ title: 'You already Use your phone for everything else, why not use it for yourself?', headerStyle: { backgroundColor: 'blue', width: 100, height: 300 },
           headerTitleStyle: { color: 'white' }, headerTitleAlign:'center',}}
           
         />
+        <Stack.Screen name="Signin" component={SigninScreen} />
+        <Stack.Screen name="Signup" component={SignupScreen} />
         <Stack.Screen name="About" component={AboutScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Task" component={TaskScreen} />
@@ -26,45 +30,45 @@ export default function App() {
     );
   };
   const loginScreen = ({ navigation }) => {
-    const [name, setName] = useState("");
     return (
       <View>
-       <Button
-        title="About"
+         <Button 
+        title="Sign up"
         onPress={() =>
-          navigation.navigate('About', { name: name})
+          navigation.navigate('Signup', { navigation: {navigation}})
         }
       />
-      <View style={styles.start}>
-      <Text > Login to create tasks</Text>
-       <TextInput
-          style ={styles.input}
-          onChangeText={text => {setName(text)}}
-          placeholder="Input your name"
-          />
       <Button 
         
-        title="Start Creating Tasks"
+        title="Login"
         onPress={() =>
-          navigation.navigate('Task', { name: name})
+          navigation.navigate('Signin', { navigation: {navigation}})
         }
       />
-      </View>
+    
       </View>
     );
   };
-  const AboutScreen = ({  route }) => {
+  const AboutScreen = ({  navigation }) => {
     return <Text style={styles.info}>This is my app. It was built by a college student named Fatumata.
     I wanted to create a place for people to manage their time by creating and tracking tasks.
     </Text>;
   };
 
-  const HomeScreen = ({ route }) => {
+  const HomeScreen = ({ navigation }) => {
     return <Text style={styles.info}>This is where you can see your current Tasks </Text>;
 
   };
-  const TaskScreen = ({ route }) => {
-    return <Task username={route.params.name}  />;
+  const TaskScreen = ({  navigation}) => {
+    return <Task  />;
+
+  };
+  const SigninScreen = ({ navigation }) => {
+    return <Signin  />;
+
+  };
+  const SignupScreen = ({ route, navigation }) => {
+    return <Signup  />;
 
   };
   const styles = StyleSheet.create({
