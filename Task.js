@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import 'react-native-gesture-handler';
+import 'react-calendar/dist/Calendar.css';
+import Calendar from 'react-calendar';
 import {  Button, StyleSheet, Text, TextInput, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -7,7 +9,23 @@ import { useNavigation } from '@react-navigation/native';
 const Task = () => {
   useEffect(() => {name()}
   ,[])
+  
+    const [date, setDate] = useState(new Date())
+    const onChange = date => {
 
+      setDate(date)
+    }
+  const saveItems= async(given) => { 
+    const items = await AsyncStorage.getItem(date.toDateString()) ;
+    let data = []
+    if(items){
+      data = JSON.parse(items)
+    }
+    data.push(given);
+       
+   await AsyncStorage.setItem(date.toDateString(), JSON.stringify(data));
+   
+  } 
   const navigation = useNavigation();
   const name = async () => {
      try{
@@ -60,19 +78,23 @@ const Task = () => {
           onChangeText={text => {setTaskDescription(text)}}
           placeholder="Describe the task"
           />
-          <TextInput
-          style={styles.textinput}
-          onChangeText={text => {setTaskDueDate(parseInt(text))}}
-          placeholder="Days left until due"
-          />
+         
+          <div>
+          <Calendar
+        onChange={onChange}
+        value={date}
+        className="react-calendar"
+      />
+      </div>
           <Button
           color='blue' title='Add task' alignText='center'
           onPress = {() =>
           {
             let newTask ="";
-            setTask('Name: '+ taskName +'\nDescription: '+taskDescription+'\nDays Left: '+taskDueDate) ;
-            newTask ='Name: '+ taskName +'\nDescription: '+taskDescription+'\nDays Left: '+taskDueDate;
-            
+            setTask('Name: '+ taskName +'\nDescription: '+taskDescription+'\nDays Left: '+date.toDateString()) ;
+            newTask ='Name: '+ taskName +'\nDescription: '+taskDescription+'\nDays Left: '+date.toDateString();
+            saveItems({"name":taskName, "Description":taskDescription, "due": date.toDateString(), "id": new Date().getTime().toString(16)})
+            console.log("adddessssss:" +date.toDateString())
             setMessage('Congrats '+ username+', you created a new task!\n'+newTask);
             }}
          />

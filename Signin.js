@@ -90,7 +90,7 @@ const compareData = async (value) => {
                     compareData();
                     if (canLog){
                         
-                    navigation.navigate('Task');
+                    navigation.navigate('Home');
                    
                     }else{
                        setCanLog("Sorry, your password or username don't match, you can't log in")

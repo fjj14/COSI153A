@@ -85,7 +85,7 @@ const storeData = async (value) => {
                     setInfo(theInfo)
                     console.log('data='+JSON.stringify(theInfo))
                     storeData(theInfo)
-                    navigation.navigate('Task');
+                    navigation.navigate('Home');
                     }}
         />
                 

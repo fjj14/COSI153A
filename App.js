@@ -1,6 +1,7 @@
 import 'react-native-gesture-handler';
 import React, { useState } from 'react';
 import Task from './Task'
+import Home from './home'
 import Signin from './Signin'
 import Signup from './Signup'
 import { Button, Text,  View,  StyleSheet, TextInput } from "react-native";
@@ -56,8 +57,7 @@ export default function App() {
   };
 
   const HomeScreen = ({ navigation }) => {
-    return <Text style={styles.info}>This is where you can see your current Tasks </Text>;
-
+    return <Home  />;
   };
   const TaskScreen = ({  navigation}) => {
     return <Task  />;
@@ -67,7 +67,7 @@ export default function App() {
     return <Signin  />;
 
   };
-  const SignupScreen = ({ route, navigation }) => {
+  const SignupScreen = ({ navigation }) => {
     return <Signup  />;
 
   };
